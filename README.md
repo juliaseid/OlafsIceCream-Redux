@@ -1,3 +1,23 @@
+## Olaf's Ice Cream Palace
+
+#### By: Julia Seidman
+
+## Description 
+
+This application is an inventory control system for an ice cream shop, created using React.js, as an introduction to React components and handling state.  
+
+## Component Diagram
+![component structure](./OlafsIceCreamPalace.png)
+
+### Specification
+  * A user should be able to create new flavors for the shop.
+  * A user should be able to view all flavors in the shop with a count of how many scoops remain in the tub.
+  * When a user sells a scoop of a flavor, the user can click a button to decrement the remaining scoops by 1.
+  * A user should be able to restock a flavor, which will increase the available scoops by 100.
+  * When the quantity of an item is 0, no more scoops can be sold.
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -41,13 +41,14 @@ class IceCreamControl extends React.Component {
   }
 
   //Need to add this method & then call it in render by calling scoopButton, then mirror for restockButton
-  // handleScooping = (id) => {
-  //   const scoopedFlavor = this.state.masterFlavorList.filter(flavor => flavor.id === id)[0];
-  //   this.setState((prevState) => ({
-  //     scoopedFlavor.scoops: prevState.scoops - 1
+  handleScooping = (id) => {
+    const scoopedFlavor = this.state.masterFlavorList.filter(flavor => flavor.id === id)[0];
+    const newScoopsNum = this.state[scoopedFlavor].scoops + 1;
+    this.setState({
+      [scoopedFlavor]: { ...scoopedFlavor, scoops: newScoopsNum }
+    })
+  }
 
-  //   }))
-  // }
 
   render() {
     let currentlyVisibleState = null;

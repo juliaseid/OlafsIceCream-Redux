@@ -3,8 +3,7 @@ import Flavor from './Flavor';
 import PropTypes from 'prop-types';
 
 function FlavorList(props) {
-  let scoopButton = <button type='button' id='scoop'>Scooped!</button>;
-  let restockButton = <button type='button' id='restock'>Order New Tub</button>;
+
   return (
     <React.Fragment>
       <hr />
@@ -17,8 +16,9 @@ function FlavorList(props) {
           creamery={flavor.creamery}
           scoops={flavor.scoops}
           id={flavor.id}
-          {...scoopButton}
-          {...restockButton} />
+          whenFlavorScooped={props.onScooping}
+          whenFlavorRestocked={props.onRestocking}
+        />
       )}
     </React.Fragment>
   );
@@ -26,7 +26,9 @@ function FlavorList(props) {
 
 FlavorList.propTypes = {
   flavorList: PropTypes.array,
-  onFlavorSelection: PropTypes.func
+  onFlavorSelection: PropTypes.func,
+  onScooping: PropTypes.func,
+  onRestocking: PropTypes.func
 };
 
 export default FlavorList;

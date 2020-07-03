@@ -10,8 +10,8 @@ function Flavor(props) {
         <h5>Creamery: {props.creamery}</h5>
         <h5>Scoops Remaining: {props.scoops}</h5>
       </div>
-      <button type='button' id='scooped'>Scooped!</button>
-      <button type='button' id='restock'>Order New Tub</button>
+      <button type='button' id='scooped' onClick={() => props.whenFlavorScooped(props.id)}>Scooped!</button>
+      <button type='button' id='restock' onClick={() => props.whenFlavorRestocked(props.id)}>Order New Tub</button>
     </React.Fragment>
   )
 };
@@ -22,7 +22,9 @@ Flavor.propTypes = {
   creamery: PropTypes.string,
   scoops: PropTypes.number,
   id: PropTypes.string,
-  whenFlavorClicked: PropTypes.func
+  whenFlavorClicked: PropTypes.func,
+  whenFlavorScooped: PropTypes.func,
+  whenFlavorRestocked: PropTypes.func
 };
 
 export default Flavor;

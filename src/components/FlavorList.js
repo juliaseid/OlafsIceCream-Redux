@@ -12,7 +12,7 @@ function FlavorList(props) {
         <Flavor
           name={flavor.name}
           allergens={flavor.allergens}
-          size={flavor.size}
+          size={flavor.creamer}
           scoops={flavor.scoops}
           id={flavor.id} />
       )}

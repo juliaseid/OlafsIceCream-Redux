@@ -11,7 +11,6 @@ class IceCreamControl extends React.Component {
       formVisibleOnPage: false,
       masterFlavorList: [],
       selectedFlavor: null,
-      scoopedFlavor: null
     }
   }
 
@@ -41,14 +40,27 @@ class IceCreamControl extends React.Component {
     this.setState({ selectedFlavor: selectedFlavor });
   }
 
-  //Need to add this method & then call it in render by calling scoopButton, then mirror for restockButton
   handleScooping = (id) => {
     const newScoopedFlavor = this.state.masterFlavorList.filter(flavor => flavor.id === id)[0];
-    console.log(newScoopedFlavor);
-    this.setState({ scoopedFlavor: newScoopedFlavor });
-    const newScoopsNum = this.state[scoopedFlavor].scoops + 1;
+    const flavorIndex = this.state.masterFlavorList.indexOf(newScoopedFlavor);
+    const newScoopsNum = newScoopedFlavor.scoops - 1;
+    let editedMasterFlavorList = this.state.masterFlavorList
+      .filter(flavor => flavor.id != newScoopedFlavor.id);
+    editedMasterFlavorList.splice(flavorIndex, 0, { ...newScoopedFlavor, scoops: newScoopsNum });
     this.setState({
-      [scoopedFlavor]: { ...scoopedFlavor, scoops: newScoopsNum }
+      masterFlavorList: editedMasterFlavorList,
+    })
+  }
+
+  handleRestocking = (id) => {
+    const newRestockedFlavor = this.state.masterFlavorList.filter(flavor => flavor.id === id)[0];
+    const flavorIndex = this.state.masterFlavorList.indexOf(newRestockedFlavor);
+    const newScoopsNum = newRestockedFlavor.scoops + 100;
+    let editedMasterFlavorList = this.state.masterFlavorList
+      .filter(flavor => flavor.id != newRestockedFlavor.id);
+    editedMasterFlavorList.splice(flavorIndex, 0, { ...newRestockedFlavor, scoops: newScoopsNum });
+    this.setState({
+      masterFlavorList: editedMasterFlavorList,
     })
   }
 
@@ -63,7 +75,7 @@ class IceCreamControl extends React.Component {
     } else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = <AddFlavorForm onAddingFlavor={this.handleAddingNewFlavorToList} />
     } else {
-      currentlyVisibleState = <FlavorList flavorList={this.state.masterFlavorList} onFlavorSelection={this.handleChangingSelectedFlavor} onScooping={this.handleScooping} />;
+      currentlyVisibleState = <FlavorList flavorList={this.state.masterFlavorList} onFlavorSelection={this.handleChangingSelectedFlavor} onScooping={this.handleScooping} onRestocking={this.handleRestocking} />;
       buttonText = "Add Flavor";
     }
 

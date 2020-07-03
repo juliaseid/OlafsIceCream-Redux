@@ -1,25 +1,14 @@
 import React from 'react';
 import { v4 } from 'uuid';
 import PropTypes from 'prop-types';
+import ReusableForm from './ReusableForm';
 
 function AddFlavorForm(props) {
   return (
     <React.Fragment>
-      <form onSubmit={handleAddFlavorFormSubmission}>
-        <input
-          type='text'
-          name='name'
-          placeholder='Flavor' /><br />
-        <input
-          type='text'
-          name='allergens'
-          placeholder='Allergens' /><br />
-        <input
-          type='text'
-          name='creamery'
-          placeholder='Creamery' /><br />
-        <button type='submit'>Add Flavor</button>
-      </form>
+      <ReusableForm
+        formSubmissionHandler={handleAddFlavorFormSubmission}
+        buttonText="Help!" />
     </React.Fragment>
   );
 

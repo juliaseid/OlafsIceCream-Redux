@@ -10,13 +10,17 @@ function FlavorDetail(props) {
       <h5>{flavor.name} - {flavor.creamery}</h5>
       <p><em>Allergens: {flavor.allergens}</em></p>
       <h5>Scoops Remaining: {flavor.scoops}</h5>
+      <button onClick={props.onClickingEdit}>Edit Flavor Info</button>
+      <button onClick={props.onClickingDelete(flavor.id)}>Discontinue Flavor</button>
       <hr />
     </React.Fragment>
   );
 }
 
 FlavorDetail.propTypes = {
-  flavor: PropTypes.object
+  flavor: PropTypes.object,
+  onClickingDelete: PropTypes.func,
+  onClickingEdit: PropTypes.func
 };
 
 export default FlavorDetail;

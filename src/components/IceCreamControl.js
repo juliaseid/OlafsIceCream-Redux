@@ -10,7 +10,8 @@ class IceCreamControl extends React.Component {
     this.state = {
       formVisibleOnPage: false,
       masterFlavorList: [],
-      selectedFlavor: null
+      selectedFlavor: null,
+      scoopedFlavor: null
     }
   }
 
@@ -42,7 +43,9 @@ class IceCreamControl extends React.Component {
 
   //Need to add this method & then call it in render by calling scoopButton, then mirror for restockButton
   handleScooping = (id) => {
-    const scoopedFlavor = this.state.masterFlavorList.filter(flavor => flavor.id === id)[0];
+    const newScoopedFlavor = this.state.masterFlavorList.filter(flavor => flavor.id === id)[0];
+    console.log(newScoopedFlavor);
+    this.setState({ scoopedFlavor: newScoopedFlavor });
     const newScoopsNum = this.state[scoopedFlavor].scoops + 1;
     this.setState({
       [scoopedFlavor]: { ...scoopedFlavor, scoops: newScoopsNum }
@@ -60,7 +63,7 @@ class IceCreamControl extends React.Component {
     } else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = <AddFlavorForm onAddingFlavor={this.handleAddingNewFlavorToList} />
     } else {
-      currentlyVisibleState = <FlavorList flavorList={this.state.masterFlavorList} onFlavorSelection={this.handleChangingSelectedFlavor} />;
+      currentlyVisibleState = <FlavorList flavorList={this.state.masterFlavorList} onFlavorSelection={this.handleChangingSelectedFlavor} onScooping={this.handleScooping} />;
       buttonText = "Add Flavor";
     }
 

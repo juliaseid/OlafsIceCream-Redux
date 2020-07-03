@@ -9,7 +9,7 @@ function AddFlavorForm(props) {
         <input
           type='text'
           name='name'
-          placeholder='Flavor Name' /><br />
+          placeholder='Flavor' /><br />
         <input
           type='text'
           name='allergens'

@@ -1,7 +1,7 @@
 import React from 'react';
 import FlavorList from './FlavorList';
 import AddFlavorForm from './AddFlavorForm';
-import { findAllByTestId } from '@testing-library/react';
+import FlavorDetail from './FlavorDetail';
 
 class IceCreamControl extends React.Component {
 
@@ -9,14 +9,22 @@ class IceCreamControl extends React.Component {
     super(props);
     this.state = {
       formVisibleOnPage: false,
-      masterFlavorList: []
+      masterFlavorList: [],
+      selectedFlavor: null
     }
   }
 
   handleClick = () => {
-    this.setState(prevState => ({
-      formVisibleOnPage: !prevState.formVisibleOnPage
-    }));
+    if (this.state.selectedFlavor != null) {
+      this.setState({
+        formVisibleOnPage: false,
+        selectedFlavor: null
+      });
+    } else {
+      this.setState(prevState => ({
+        formVisibleOnPage: !prevState.formVisibleOnPage,
+      }));
+    }
   }
 
   handleAddingNewFlavorToList = (newFlavor) => {
@@ -27,15 +35,30 @@ class IceCreamControl extends React.Component {
     });
   }
 
+  handleChangingSelectedFlavor = (id) => {
+    const selectedFlavor = this.state.masterFlavorList.filter(flavor => flavor.id === id)[0];
+    this.setState({ selectedFlavor: selectedFlavor });
+  }
+
+  //Need to add this method & then call it in render by calling scoopButton, then mirror for restockButton
+  // handleScooping = () => {
+  //   this.setState({
+
+  //   })
+  // }
+
   render() {
     let currentlyVisibleState = null;
-    let addFlavorButton = null;
+    let buttonText = null;
 
-    if (this.state.formVisibleOnPage) {
+    if (this.state.selectedFlavor != null) {
+      currentlyVisibleState = <FlavorDetail flavor={this.state.selectedFlavor} />
+      buttonText = "Return to Flavor List";
+    } else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = <AddFlavorForm onAddingFlavor={this.handleAddingNewFlavorToList} />
     } else {
-      currentlyVisibleState = <FlavorList flavorList={this.state.masterFlavorList} />
-      addFlavorButton = <button onClick={this.handleClick}>Add New Flavor</button>
+      currentlyVisibleState = <FlavorList flavorList={this.state.masterFlavorList} onFlavorSelection={this.handleChangingSelectedFlavor} />;
+      buttonText = "Add Flavor";
     }
 
 
@@ -44,7 +67,7 @@ class IceCreamControl extends React.Component {
         {currentlyVisibleState}
         <br />
         <br />
-        {addFlavorButton}
+        <button onClick={this.handleClick}>{buttonText}</button>
       </React.Fragment>
     );
   }

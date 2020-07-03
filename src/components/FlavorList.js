@@ -11,6 +11,7 @@ function FlavorList(props) {
       <hr />
       {props.flavorList.map((flavor) =>
         <Flavor
+          whenFlavorClicked={props.onFlavorSelection}
           name={flavor.name}
           allergens={flavor.allergens}
           creamery={flavor.creamery}
@@ -24,7 +25,8 @@ function FlavorList(props) {
 }
 
 FlavorList.propTypes = {
-  flavorList: PropTypes.array
+  flavorList: PropTypes.array,
+  onFlavorSelection: PropTypes.func
 };
 
 export default FlavorList;

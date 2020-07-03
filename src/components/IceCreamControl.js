@@ -42,6 +42,8 @@ class IceCreamControl extends React.Component {
     return (
       <React.Fragment>
         {currentlyVisibleState}
+        <br />
+        <br />
         {addFlavorButton}
       </React.Fragment>
     );

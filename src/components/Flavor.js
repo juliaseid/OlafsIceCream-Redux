@@ -8,6 +8,8 @@ function Flavor(props) {
       <h6><em>Allergens: {props.allergens}</em></h6>
       <h5>Creamery: {props.creamery}</h5>
       <h5>Scoops Remaining: {props.scoops}</h5>
+      <button type='button' id='scooped'>Scooped!</button>
+      <button type='button' id='restock'>Order New Tub</button>
     </React.Fragment>
   )
 };

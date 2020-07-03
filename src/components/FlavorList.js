@@ -3,7 +3,8 @@ import Flavor from './Flavor';
 import PropTypes from 'prop-types';
 
 function FlavorList(props) {
-
+  let scoopButton = <button type='button' id='scoop'>Scooped!</button>;
+  let restockButton = <button type='button' id='restock'>Order New Tub</button>;
   return (
     <React.Fragment>
       <hr />
@@ -14,7 +15,9 @@ function FlavorList(props) {
           allergens={flavor.allergens}
           creamery={flavor.creamery}
           scoops={flavor.scoops}
-          id={flavor.id} />
+          id={flavor.id}
+          {...scoopButton}
+          {...restockButton} />
       )}
     </React.Fragment>
   );

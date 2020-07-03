@@ -6,8 +6,14 @@ import IceCreamControl from './IceCreamControl';
 function App() {
   return (
     <React.Fragment>
-      <Header />
-      <IceCreamControl />
+      <div className='container'>
+        <div className='header'>
+          <Header />
+        </div>
+        <div className='control'>
+          <IceCreamControl />
+        </div>
+      </div>
     </React.Fragment>
   );
 }

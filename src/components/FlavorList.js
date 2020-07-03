@@ -6,8 +6,6 @@ function FlavorList(props) {
 
   return (
     <React.Fragment>
-      <hr />
-      <hr />
       {props.flavorList.map((flavor) =>
         <Flavor
           whenFlavorClicked={props.onFlavorSelection}

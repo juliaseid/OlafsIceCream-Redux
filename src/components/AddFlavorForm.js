@@ -18,6 +18,7 @@ function AddFlavorForm(props) {
           type='text'
           name='creamery'
           placeholder='Creamery' /><br />
+        <button type='submit'>Add Flavor</button>
       </form>
     </React.Fragment>
   );
@@ -28,6 +29,7 @@ function AddFlavorForm(props) {
       name: event.target.name.value,
       allergens: event.target.allergens.value,
       creamery: event.target.creamery.value,
+      scoops: 100,
       id: v4()
     })
   }

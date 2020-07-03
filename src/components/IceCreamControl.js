@@ -11,7 +11,6 @@ class IceCreamControl extends React.Component {
       formVisibleOnPage: false,
       masterFlavorList: [],
       selectedFlavor: null,
-      editing: false,
     }
   }
 
@@ -34,6 +33,11 @@ class IceCreamControl extends React.Component {
       masterFlavorList: newMasterFlavorList,
       formVisibleOnPage: false
     });
+  }
+
+  handleChangingSelectedFlavor = (id) => {
+    const selectedFlavor = this.state.masterFlavorList.filter(flavor => flavor.id === id)[0];
+    this.setState({ selectedFlavor: selectedFlavor });
   }
 
   handleScooping = (id) => {
@@ -62,33 +66,12 @@ class IceCreamControl extends React.Component {
     })
   }
 
-  handleChangingSelectedFlavor = (id) => {
-    const selectedFlavor = this.state.masterFlavorList.filter(flavor => flavor.id === id)[0];
-    this.setState({ selectedFlavor: selectedFlavor });
-  }
-
-  handleDeletingFlavor = (id) => {
-    const newMasterFlavorList = this.state.masterFlavorList.filter(flavor => flavor.id !== id);
-    this.setState({
-      masterFlavorList: newMasterFlavorList,
-      selectedFlavor: null
-    });
-  }
-
-  handleEditClick = () => {
-    console.log("You did it!");
-    this.setState({ editing: true });
-  }
-
   render() {
     let currentlyVisibleState = null;
     let buttonText = null;
 
     if (this.state.selectedFlavor != null) {
-      currentlyVisibleState = <FlavorDetail
-        flavor={this.state.selectedFlavor}
-        onClickingDelete={this.handleDeletingFlavor}
-        onClickingEdit={this.handleEditClick} />
+      currentlyVisibleState = <FlavorDetail flavor={this.state.selectedFlavor} />
       buttonText = "Return to Flavor List";
     } else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = <AddFlavorForm onAddingFlavor={this.handleAddingNewFlavorToList} />

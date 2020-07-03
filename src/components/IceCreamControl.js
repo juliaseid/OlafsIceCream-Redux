@@ -43,13 +43,15 @@ class IceCreamControl extends React.Component {
   handleScooping = (id) => {
     const newScoopedFlavor = this.state.masterFlavorList.filter(flavor => flavor.id === id)[0];
     const flavorIndex = this.state.masterFlavorList.indexOf(newScoopedFlavor);
-    const newScoopsNum = newScoopedFlavor.scoops - 1;
-    let editedMasterFlavorList = this.state.masterFlavorList
-      .filter(flavor => flavor.id != newScoopedFlavor.id);
-    editedMasterFlavorList.splice(flavorIndex, 0, { ...newScoopedFlavor, scoops: newScoopsNum });
-    this.setState({
-      masterFlavorList: editedMasterFlavorList,
-    })
+    if (newScoopedFlavor.scoops >= 1) {
+      const newScoopsNum = newScoopedFlavor.scoops - 1;
+      let editedMasterFlavorList = this.state.masterFlavorList
+        .filter(flavor => flavor.id != newScoopedFlavor.id);
+      editedMasterFlavorList.splice(flavorIndex, 0, { ...newScoopedFlavor, scoops: newScoopsNum });
+      this.setState({
+        masterFlavorList: editedMasterFlavorList,
+      })
+    }
   }
 
   handleRestocking = (id) => {
@@ -63,7 +65,6 @@ class IceCreamControl extends React.Component {
       masterFlavorList: editedMasterFlavorList,
     })
   }
-
 
   render() {
     let currentlyVisibleState = null;

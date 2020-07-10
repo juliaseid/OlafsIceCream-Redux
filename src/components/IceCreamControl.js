@@ -5,6 +5,7 @@ import FlavorDetail from './FlavorDetail';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import EditFlavorForm from './EditFlavorForm';
+import * as a from './../actions';
 
 
 class IceCreamControl extends React.Component {
@@ -31,9 +32,7 @@ class IceCreamControl extends React.Component {
       });
     } else {
       const { dispatch } = this.props;
-      const action = {
-        type: 'TOGGLE_FORM'
-      }
+      const action = a.toggleForm();
       dispatch(action);
     }
   }
@@ -59,7 +58,6 @@ class IceCreamControl extends React.Component {
   handleEditClick = () => {
     this.setState({ editing: true });
   }
-
 
   handleEditingFlavorInList = (flavorToEdit) => {
     const { dispatch } = this.props;

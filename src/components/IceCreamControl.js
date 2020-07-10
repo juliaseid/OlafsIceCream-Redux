@@ -15,6 +15,11 @@ class IceCreamControl extends React.Component {
     }
   }
 
+  handleChangingSelectedFlavor = (id) => {
+    const selectedFlavor = this.props.masterFlavorList[id];
+    this.setState({ selectedFlavor: selectedFlavor });
+  }
+
   handleClickFlavor = (selectedFlavor) => {
     const { dispatch } = this.props;
     const { id, name, allergens, creamery, scoops } = selectedFlavor;
@@ -42,18 +47,11 @@ class IceCreamControl extends React.Component {
   }
 
   handleClick = () => {
-    // if (this.state.selectedFlavor != null) {
-    //   this.setState({
-    //     selectedFlavor: null,
-    //     editing: false
-    //   });
-    // } else {
     const { dispatch } = this.props;
     const action = {
       type: 'TOGGLE_FORM'
     }
     dispatch(action);
-    // }
   }
 
   handleAddingNewFlavorToList = (newFlavor) => {
@@ -135,7 +133,7 @@ class IceCreamControl extends React.Component {
     if (this.props.detailVisibleOnPage) {
       currentlyVisibleState =
         <React.Fragment>
-          <FlavorDetail flavor={{ id: id, name: name, allergens: allergens, creamery: creamery, scoops: scoops }} />
+          <FlavorDetail flavor={this.state.selectedFlavor} />
           <br />
           <br />
           <button onClick={this.handleReturnClick}>Return to Flavor List</button>
@@ -145,7 +143,7 @@ class IceCreamControl extends React.Component {
     } else {
       currentlyVisibleState = <FlavorList
         flavorList={this.props.masterFlavorList}
-        onFlavorSelection={this.handleClickFlavor}
+        onFlavorSelection={this.handleChangingSelectedFlavor}
         onScooping={this.handleScooping}
         onRestocking={this.handleRestocking} />;
       buttonText = "Add Flavor";

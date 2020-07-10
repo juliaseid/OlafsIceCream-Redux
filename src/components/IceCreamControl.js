@@ -11,7 +11,6 @@ class IceCreamControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      formVisibleOnPage: false,
       selectedFlavor: null,
     }
   }
@@ -19,28 +18,34 @@ class IceCreamControl extends React.Component {
   handleClick = () => {
     if (this.state.selectedFlavor != null) {
       this.setState({
-        formVisibleOnPage: false,
-        selectedFlavor: null
+        selectedFlavor: null,
+        editing: false
       });
     } else {
-      this.setState(prevState => ({
-        formVisibleOnPage: !prevState.formVisibleOnPage,
-      }));
+      const { dispatch } = this.props;
+      const action = {
+        type: 'TOGGLE_FORM'
+      }
+      dispatch(action);
     }
   }
 
   handleAddingNewFlavorToList = (newFlavor) => {
     const { dispatch } = this.props;
-    const { id, name, allergens, creamery } = newFlavor;
+    const { id, name, allergens, creamery, scoops } = newFlavor;
     const action = {
       type: 'ADD_FLAVOR',
       id: id,
       name: name,
       allergens: allergens,
       creamery: creamery,
+      scoops: scoops,
     }
     dispatch(action);
-    this.setState({ formVisibleOnPage: false });
+    const action2 = {
+      type: 'TOGGLE_FORM'
+    }
+    dispatch(action2);
   }
 
   handleChangingSelectedFlavor = (id) => {
@@ -50,13 +55,14 @@ class IceCreamControl extends React.Component {
 
   handleEditingFlavorInList = (flavorToEdit) => {
     const { dispatch } = this.props;
-    const { id, name, allergens, creamery } = flavorToEdit;
+    const { id, name, allergens, creamery, scoops } = flavorToEdit;
     const action = {
       type: 'ADD_FLAVOR',
       id: id,
       name: name,
       allergens: allergens,
       creamery: creamery,
+      scoops: scoops,
     }
     dispatch(action);
     this.setState({
@@ -108,7 +114,7 @@ class IceCreamControl extends React.Component {
     if (this.state.selectedFlavor != null) {
       currentlyVisibleState = <FlavorDetail flavor={this.state.selectedFlavor} />
       buttonText = "Return to Flavor List";
-    } else if (this.state.formVisibleOnPage) {
+    } else if (this.props.formVisibleOnPage) {
       currentlyVisibleState = <AddFlavorForm onAddingFlavor={this.handleAddingNewFlavorToList} />
     } else {
       currentlyVisibleState = <FlavorList
@@ -137,7 +143,8 @@ IceCreamControl.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    masterFlavorList: state
+    masterFlavorList: state.masterFlavorList,
+    formVisibleOnPage: state.formVisibleOnPage
   }
 }
 

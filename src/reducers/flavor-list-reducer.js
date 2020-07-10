@@ -8,6 +8,7 @@ export default (state = {}, action) => {
           name: name,
           allergens: allergens,
           creamery: creamery,
+          scoops: 100,
           id: id
         }
       });

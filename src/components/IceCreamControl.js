@@ -47,6 +47,33 @@ class IceCreamControl extends React.Component {
     this.setState({ selectedFlavor: selectedFlavor });
   }
 
+  handleEditingFlavorInList = (flavorToEdit) => {
+    const { dispatch } = this.props;
+    const { id, name, allergens, creamery } = flavorToEdit;
+    const action = {
+      type: 'ADD_FLAVOR',
+      id: id,
+      name: name,
+      allergens: allergens,
+      creamery: creamery,
+    }
+    dispatch(action);
+    this.setState({
+      editing: false,
+      selectedFlavor: null
+    });
+  }
+
+  handleDeletingFlavor = (id) => {
+    const { dispatch } = this.props;
+    const action = {
+      type: 'DELETE_FLAVOR',
+      id: id
+    }
+    dispatch(action);
+    this.setState({ selectedFlavor: null });
+  }
+
   handleScooping = (id) => {
     const newScoopedFlavor = this.state.masterFlavorList.filter(flavor => flavor.id === id)[0];
     const flavorIndex = this.state.masterFlavorList.indexOf(newScoopedFlavor);
@@ -103,6 +130,12 @@ class IceCreamControl extends React.Component {
   }
 }
 
-IceCreamControl = connect()(IceCreamControl);
+const mapStateToProps = state => {
+  return {
+    masterFlavorList: state
+  }
+}
+
+IceCreamControl = connect(mapStateToProps)(IceCreamControl);
 
 export default IceCreamControl;

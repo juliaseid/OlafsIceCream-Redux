@@ -7,7 +7,8 @@ describe('flavorListReducer', () => {
     name: 'hazelnut salted caramel',
     allergens: 'tree nuts, dairy',
     creamery: 'Tillamook',
-    id: 1
+    id: 1,
+    scoops: 100
   };
 
   const currentState = {
@@ -15,25 +16,28 @@ describe('flavorListReducer', () => {
       name: 'limoncello sorbet',
       allergens: 'none',
       creamery: 'Gelatiamo',
-      id: 1
+      id: 1,
+      scoops: 100
     },
     2: {
       name: 'rice pudding',
       allergens: 'eggs, dairy',
       creamery: 'Olympic',
-      id: 2
+      id: 2,
+      scoops: 100
     }
   }
 
 
   test('Should successfully add new flavor data to masterFlavorList', () => {
-    const { name, allergens, creamery, id } = flavorData;
+    const { name, allergens, creamery, id, scoops } = flavorData;
     action = {
       type: 'ADD_FLAVOR',
       name: name,
       allergens: allergens,
       creamery: creamery,
-      id: id
+      id: id,
+      scoops: scoops
     };
 
     expect(flavorListReducer({}, action)).toEqual({
@@ -41,7 +45,8 @@ describe('flavorListReducer', () => {
         name: name,
         allergens: allergens,
         creamery: creamery,
-        id: id
+        id: id,
+        scoops: 100
       }
     });
   });
@@ -56,7 +61,8 @@ describe('flavorListReducer', () => {
         name: 'rice pudding',
         allergens: 'eggs, dairy',
         creamery: 'Olympic',
-        id: 2
+        id: 2,
+        scoops: 100
       }
     });
   });

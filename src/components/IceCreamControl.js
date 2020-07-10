@@ -2,6 +2,8 @@ import React from 'react';
 import FlavorList from './FlavorList';
 import AddFlavorForm from './AddFlavorForm';
 import FlavorDetail from './FlavorDetail';
+import { connect } from 'react-redux';
+
 
 class IceCreamControl extends React.Component {
 
@@ -9,7 +11,6 @@ class IceCreamControl extends React.Component {
     super(props);
     this.state = {
       formVisibleOnPage: false,
-      masterFlavorList: [],
       selectedFlavor: null,
     }
   }
@@ -28,11 +29,17 @@ class IceCreamControl extends React.Component {
   }
 
   handleAddingNewFlavorToList = (newFlavor) => {
-    const newMasterFlavorList = this.state.masterFlavorList.concat(newFlavor);
-    this.setState({
-      masterFlavorList: newMasterFlavorList,
-      formVisibleOnPage: false
-    });
+    const { dispatch } = this.props;
+    const { id, name, allergens, creamery } = newFlavor;
+    const action = {
+      type: 'ADD_FLAVOR',
+      id: id,
+      name: name,
+      allergens: allergens,
+      creamery: creamery,
+    }
+    dispatch(action);
+    this.setState({ formVisibleOnPage: false });
   }
 
   handleChangingSelectedFlavor = (id) => {
@@ -95,5 +102,7 @@ class IceCreamControl extends React.Component {
     );
   }
 }
+
+IceCreamControl = connect()(IceCreamControl);
 
 export default IceCreamControl;

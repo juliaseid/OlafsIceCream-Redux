@@ -3,6 +3,7 @@ import FlavorList from './FlavorList';
 import AddFlavorForm from './AddFlavorForm';
 import FlavorDetail from './FlavorDetail';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 
 class IceCreamControl extends React.Component {
@@ -43,7 +44,7 @@ class IceCreamControl extends React.Component {
   }
 
   handleChangingSelectedFlavor = (id) => {
-    const selectedFlavor = this.state.masterFlavorList.filter(flavor => flavor.id === id)[0];
+    const selectedFlavor = this.props.masterFlavorList[id];
     this.setState({ selectedFlavor: selectedFlavor });
   }
 
@@ -75,11 +76,11 @@ class IceCreamControl extends React.Component {
   }
 
   handleScooping = (id) => {
-    const newScoopedFlavor = this.state.masterFlavorList.filter(flavor => flavor.id === id)[0];
-    const flavorIndex = this.state.masterFlavorList.indexOf(newScoopedFlavor);
+    const newScoopedFlavor = this.props.masterFlavorList.filter(flavor => flavor.id === id)[0];
+    const flavorIndex = this.props.masterFlavorList.indexOf(newScoopedFlavor);
     if (newScoopedFlavor.scoops >= 1) {
       const newScoopsNum = newScoopedFlavor.scoops - 1;
-      let editedMasterFlavorList = this.state.masterFlavorList
+      let editedMasterFlavorList = this.props.masterFlavorList
         .filter(flavor => flavor.id != newScoopedFlavor.id);
       editedMasterFlavorList.splice(flavorIndex, 0, { ...newScoopedFlavor, scoops: newScoopsNum });
       this.setState({
@@ -89,10 +90,10 @@ class IceCreamControl extends React.Component {
   }
 
   handleRestocking = (id) => {
-    const newRestockedFlavor = this.state.masterFlavorList.filter(flavor => flavor.id === id)[0];
-    const flavorIndex = this.state.masterFlavorList.indexOf(newRestockedFlavor);
+    const newRestockedFlavor = this.props.masterFlavorList.filter(flavor => flavor.id === id)[0];
+    const flavorIndex = this.props.masterFlavorList.indexOf(newRestockedFlavor);
     const newScoopsNum = newRestockedFlavor.scoops + 100;
-    let editedMasterFlavorList = this.state.masterFlavorList
+    let editedMasterFlavorList = this.props.masterFlavorList
       .filter(flavor => flavor.id != newRestockedFlavor.id);
     editedMasterFlavorList.splice(flavorIndex, 0, { ...newRestockedFlavor, scoops: newScoopsNum });
     this.setState({
@@ -111,7 +112,7 @@ class IceCreamControl extends React.Component {
       currentlyVisibleState = <AddFlavorForm onAddingFlavor={this.handleAddingNewFlavorToList} />
     } else {
       currentlyVisibleState = <FlavorList
-        flavorList={this.state.masterFlavorList}
+        flavorList={this.props.masterFlavorList}
         onFlavorSelection={this.handleChangingSelectedFlavor}
         onScooping={this.handleScooping}
         onRestocking={this.handleRestocking} />;
@@ -129,6 +130,10 @@ class IceCreamControl extends React.Component {
     );
   }
 }
+
+IceCreamControl.propTypes = {
+  masterFlavorList: PropTypes.object
+};
 
 const mapStateToProps = state => {
   return {

@@ -6,8 +6,8 @@ function FlavorList(props) {
 
   return (
     <React.Fragment>
-      {props.flavorList.map((flavor) =>
-        <Flavor
+      {Object.values(props.flavorList).map((flavor) => {
+        return <Flavor
           whenFlavorClicked={props.onFlavorSelection}
           name={flavor.name}
           allergens={flavor.allergens}
@@ -17,13 +17,13 @@ function FlavorList(props) {
           whenFlavorScooped={props.onScooping}
           whenFlavorRestocked={props.onRestocking}
         />
-      )}
+      })}
     </React.Fragment>
   );
 }
 
 FlavorList.propTypes = {
-  flavorList: PropTypes.array,
+  flavorList: PropTypes.object,
   onFlavorSelection: PropTypes.func,
   onScooping: PropTypes.func,
   onRestocking: PropTypes.func

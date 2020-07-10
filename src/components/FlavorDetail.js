@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function FlavorDetail(props) {
-  const { flavor } = props;
+  const { flavor, onClickingDelete } = props;
 
   return (
     <React.Fragment>
@@ -11,12 +11,16 @@ function FlavorDetail(props) {
       <p><em>Allergens: {flavor.allergens}</em></p>
       <h5>Scoops Remaining: {flavor.scoops}</h5>
       <hr />
+      <button onClick={props.onClickingEdit}>Edit Flavor Details</button>
+      <button onClick={() => onClickingDelete(flavor.id)}>Discontinue Flavor</button>
     </React.Fragment>
   );
 }
 
 FlavorDetail.propTypes = {
-  flavor: PropTypes.object
+  flavor: PropTypes.object,
+  onClickingDelete: PropTypes.func,
+  onClickingEdit: PropTypes.func
 };
 
 export default FlavorDetail;

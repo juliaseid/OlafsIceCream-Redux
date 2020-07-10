@@ -12,6 +12,7 @@ class IceCreamControl extends React.Component {
     super(props);
     this.state = {
       selectedFlavor: null,
+      editing: false,
     }
   }
 
@@ -25,6 +26,7 @@ class IceCreamControl extends React.Component {
     if (this.state.selectedFlavor != null) {
       this.setState({
         selectedFlavor: null,
+        editing: false
       });
     } else {
       const { dispatch } = this.props;
@@ -53,6 +55,11 @@ class IceCreamControl extends React.Component {
     dispatch(action2);
   }
 
+  handleEditClick = () => {
+    this.setState({ editing: true });
+  }
+
+
   handleEditingFlavorInList = (flavorToEdit) => {
     const { dispatch } = this.props;
     const { id, name, allergens, creamery, scoops } = flavorToEdit;
@@ -70,6 +77,8 @@ class IceCreamControl extends React.Component {
     }
     dispatch(action2);
   }
+  //Need to return 'editing' to false?
+
 
   handleDeletingFlavor = (id) => {
     const { dispatch } = this.props;
@@ -112,7 +121,10 @@ class IceCreamControl extends React.Component {
     let buttonText = null;
 
     if (this.state.selectedFlavor != null) {
-      currentlyVisibleState = <FlavorDetail flavor={this.state.selectedFlavor} onClickingDelete={this.handleDeletingFlavor} onClickingEdit={this.handleEditClick} />
+      currentlyVisibleState = <FlavorDetail
+        flavor={this.state.selectedFlavor}
+        onClickingDelete={this.handleDeletingFlavor}
+        onClickingEdit={this.handleEditClick} />
       buttonText = "Return to Flavor List";
     } else if (this.props.formVisibleOnPage) {
       currentlyVisibleState = <AddFlavorForm onAddingFlavor={this.handleAddingNewFlavorToList} />

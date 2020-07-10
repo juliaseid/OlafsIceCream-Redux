@@ -13,17 +13,6 @@ export default (state = {}, action) => {
         }
       });
 
-    case 'SEE_DETAIL':
-      return Object.assign({}, state, {
-        [id]: {
-          name: name,
-          allergens: allergens,
-          creamery: creamery,
-          scoops: scoops,
-          id: id
-        }
-      });
-
     case 'DELETE_FLAVOR':
       const newState = { ...state };
       delete newState[id];

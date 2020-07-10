@@ -10,6 +10,22 @@ describe('flavorListReducer', () => {
     id: 1
   };
 
+  const currentState = {
+    1: {
+      name: 'limoncello sorbet',
+      allergens: 'none',
+      creamery: 'Gelatiamo',
+      id: 1
+    },
+    2: {
+      name: 'rice pudding',
+      allergens: 'eggs, dairy',
+      creamery: 'Olympic',
+      id: 2
+    }
+  }
+
+
   test('Should successfully add new flavor data to masterFlavorList', () => {
     const { name, allergens, creamery, id } = flavorData;
     action = {
@@ -26,6 +42,21 @@ describe('flavorListReducer', () => {
         allergens: allergens,
         creamery: creamery,
         id: id
+      }
+    });
+  });
+
+  test('Should successfully delete a flavor', () => {
+    action = {
+      type: 'DELETE_FLAVOR',
+      id: 1
+    };
+    expect(flavorListReducer(currentState, action)).toEqual({
+      2: {
+        name: 'rice pudding',
+        allergens: 'eggs, dairy',
+        creamery: 'Olympic',
+        id: 2
       }
     });
   });

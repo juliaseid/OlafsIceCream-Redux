@@ -4,6 +4,7 @@ import AddFlavorForm from './AddFlavorForm';
 import FlavorDetail from './FlavorDetail';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import EditFlavorForm from './EditFlavorForm';
 
 
 class IceCreamControl extends React.Component {
@@ -120,7 +121,10 @@ class IceCreamControl extends React.Component {
     let currentlyVisibleState = null;
     let buttonText = null;
 
-    if (this.state.selectedFlavor != null) {
+    if (this.state.editing) {
+      currentlyVisibleState = <EditFlavorForm flavor={this.state.selectedFlavor} onEditFlavor={this.handleEditingFlavorInList} />
+      buttonText = "Return to Flavor List";
+    } else if (this.state.selectedFlavor != null) {
       currentlyVisibleState = <FlavorDetail
         flavor={this.state.selectedFlavor}
         onClickingDelete={this.handleDeletingFlavor}

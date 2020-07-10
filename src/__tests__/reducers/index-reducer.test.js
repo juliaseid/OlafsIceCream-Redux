@@ -22,4 +22,24 @@ describe("rootReducer", () => {
     });
   });
 
+  test('Check that initial state of flavorListReducer matches root reducer', () => {
+    const action = {
+      type: 'ADD_FLAVOR',
+      name: 'hazelnut salted caramel',
+      allergens: 'tree nuts, dairy',
+      creamery: 'Tillamook',
+      id: 1
+    }
+    store.dispatch(action);
+    expect(store.getState().masterFlavorList).toEqual(flavorListReducer(undefined, action));
+  });
+
+  test('Check that initial state of formVisibleReducer matches root reducer', () => {
+    const action = {
+      type: 'TOGGLE_FORM'
+    }
+    store.dispatch(action);
+    expect(store.getState().formVisibleOnPage).toEqual(formVisibleReducer(undefined, action));
+  });
+
 });

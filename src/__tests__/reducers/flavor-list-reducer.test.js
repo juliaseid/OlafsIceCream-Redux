@@ -1,3 +1,4 @@
+import * as c from './../../actions/ActionTypes';
 import flavorListReducer from '../../reducers/flavor-list-reducer';
 
 describe('flavorListReducer', () => {
@@ -32,7 +33,7 @@ describe('flavorListReducer', () => {
   test('Should successfully add new flavor data to masterFlavorList', () => {
     const { name, allergens, creamery, id, scoops } = flavorData;
     action = {
-      type: 'ADD_FLAVOR',
+      type: c.ADD_FLAVOR,
       name: name,
       allergens: allergens,
       creamery: creamery,
@@ -53,7 +54,7 @@ describe('flavorListReducer', () => {
 
   test('Should successfully delete a flavor', () => {
     action = {
-      type: 'DELETE_FLAVOR',
+      type: c.DELETE_FLAVOR,
       id: 1
     };
     expect(flavorListReducer(currentState, action)).toEqual({
